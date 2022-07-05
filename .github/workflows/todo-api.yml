@@ -75,10 +75,10 @@ jobs:
         name: ${{ env.ARTIFACT_NAME }}-iac
         path: deploy/terraform/todo-api
 
-  staging:
+  stg:
     if: github.event_name != 'pull_request'
     environment: 
-      name: staging
+      name: stg
       url: ${{ steps.stg-deploy.outputs.webapp-url }}
     runs-on: ubuntu-latest
     needs: build
@@ -163,7 +163,7 @@ jobs:
       url: ${{ steps.prod-deploy.outputs.webapp-url }}
     
     runs-on: ubuntu-latest
-    needs: staging
+    needs: stg
 
     env:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
